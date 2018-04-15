@@ -45,7 +45,7 @@ class Model():
         self.keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
         with tf.variable_scope('embedding'):
-            print('embeddding file:' embedding_file)
+            print('embeddding file:', embedding_file)
             if embedding_file:
                 # if embedding file provided, use it.
                 embedding = np.load(embedding_file)
