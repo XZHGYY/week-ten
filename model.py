@@ -88,8 +88,10 @@ class Model():
 
         self.predictions = tf.nn.softmax(logits, name='predictions')
 
-        
-        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(self.Y, logits=logits))
+        y_one_hot = tf.one_hot(self.Y, self.num_words)
+        y_reshaped = tf.reshape(y_one_hot, logits.get_shape())
+        loss = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=y_reshaped)        
+
         mean, var = tf.nn.moments(logits, -1)
         self.loss = tf.reduce_mean(loss)
         tf.summary.scalar('logits_loss', self.loss)
