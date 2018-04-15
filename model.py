@@ -45,6 +45,7 @@ class Model():
         self.keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
         with tf.variable_scope('embedding'):
+            print('embeddding file:' embedding_file)
             if embedding_file:
                 # if embedding file provided, use it.
                 embedding = np.load(embedding_file)
@@ -87,7 +88,7 @@ class Model():
 
         self.predictions = tf.nn.softmax(logits, name='predictions')
 
-        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(self.Y, [-1], logits=logits)
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(self.Y, [-1], logits=logit)
         mean, var = tf.nn.moments(logits, -1)
         self.loss = tf.reduce_mean(loss)
         tf.summary.scalar('logits_loss', self.loss)
